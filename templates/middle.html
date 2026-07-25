@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Vest Counsel middle slide</title>
+<title>Theus Abroad middle slide</title>
 <link href="../assets/fonts/montserrat.css" rel="stylesheet">
 <style>
   :root{
-    --ink:#0c0c0c; --paper:#ffffff; --red:#b32600;
-    --gray:#808080; --charcoal:#282828; --cream:#edeae3;
+    /* Theus Abroad brand palette */
+    --navy:#101957; --tan:#C8B59A; --paper:#ffffff;
     --ml:88px;                 /* left and right margin */
     --asc:0.968; --em:1.219;   /* Montserrat metrics, do not edit */
   }
@@ -18,12 +18,15 @@
     font-family:'Montserrat',system-ui,sans-serif;
     -webkit-font-smoothing:antialiased;
   }
-  .slide.bg-paper   { background:var(--paper);    color:var(--ink);   --bg:var(--paper);    --accent:var(--red);   }
-  .slide.bg-cream   { background:var(--cream);    color:var(--ink);   --bg:var(--cream);    --accent:var(--red);   }
-  .slide.bg-ink     { background:var(--ink);      color:var(--paper); --bg:var(--ink);      --accent:var(--paper); }
-  .slide.bg-charcoal{ background:var(--charcoal); color:var(--paper); --bg:var(--charcoal); --accent:var(--paper); }
-  .slide.bg-gray    { background:var(--gray);     color:var(--paper); --bg:var(--gray);     --accent:var(--paper); }
-  .slide.bg-red     { background:var(--red);      color:var(--paper); --bg:var(--red);      --accent:var(--paper); }
+  /* bg-ink / bg-charcoal / bg-gray / bg-red are legacy aliases of bg-navy,
+     and bg-cream is a legacy alias of bg-tan, so older CSV rows and
+     rendered slides keep working. */
+  .slide.bg-paper   { background:var(--paper); color:var(--navy); --bg:var(--paper); --accent:var(--navy); }
+  .slide.bg-tan,
+  .slide.bg-cream   { background:var(--tan);   color:var(--navy); --bg:var(--tan);   --accent:var(--navy); }
+  .slide.bg-navy, .slide.bg-ink, .slide.bg-charcoal,
+  .slide.bg-gray, .slide.bg-red
+                    { background:var(--navy); color:var(--paper); --bg:var(--navy); --accent:var(--tan); }
 
   /* Baseline anchoring. .bl-top pins the first baseline, .bl-bot the last. */
   .bl-top,.bl-bot{
@@ -35,7 +38,7 @@
   .bl-bot{ bottom:calc((1350 - (var(--bl) + ((var(--lh) - var(--em))/2 + 0.251) * var(--fs))) * 1px); }
 
   /* Hierarchy: title above the divider, divider, stacked content below,
-     image only after all text. The title takes the accent red. Its LAST
+     image only after all text. The title takes the accent color. Its LAST
      baseline is pinned, so multiline titles grow upward and always stay
      clear of the divider (baseline sits so 60px descenders keep the same
      visual gap to the rule that the smaller title had). */
@@ -70,7 +73,7 @@
 
 <!-- =======================================================================
      EDIT HERE.
-     Backgrounds:  bg-paper  bg-cream  bg-ink  bg-charcoal  bg-gray  bg-red
+     Backgrounds:  bg-paper  bg-tan  bg-navy
      Never indent a continuation line. Use &amp;amp; for an ampersand.
 
      ILLUSTRATIONS. The generator fills the img src from the CSV with a
@@ -107,7 +110,7 @@
   const subheading = document.querySelector('.subheading');
   const body = document.querySelector('.body');
   const art = document.querySelector('.illustration');
-  if (slide.className.indexOf(ph('BACKGROUND')) !== -1) slide.className = 'slide bg-cream';
+  if (slide.className.indexOf(ph('BACKGROUND')) !== -1) slide.className = 'slide bg-tan';
   if (title.textContent === ph('HEADING')) title.textContent = 'Use the correct entity name';
   if (subheading.textContent === ph('SUBHEADING')) subheading.textContent = '';
   if (body.textContent === ph('BODY')) body.textContent = 'The agreement should identify the exact company entering into the contract.';

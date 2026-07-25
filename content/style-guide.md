@@ -1,7 +1,15 @@
-# Vest Counsel carousel copy style guide
+# Theus Abroad carousel copy style guide
 
 Distilled from the reviewed edits to the four Gaga trademark carousels
 (August 2026). These rules govern all future carousel drafting.
+
+## Brand
+
+- Wordmark: THEUS ABROAD (set in Montserrat, as is all slide type).
+- Colors, and nothing outside them:
+  - `#101957` navy — dark backgrounds; text and accent on light backgrounds.
+  - `#C8B59A` tan — light warm background; accent on navy backgrounds.
+  - `#FFFFFF` white — paper background; text on navy backgrounds.
 
 ## Punctuation
 

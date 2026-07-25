@@ -1,6 +1,6 @@
 # social-content
 
-CSV-driven carousel generator. CSV content flows into the existing HTML slide
+CSV-driven carousel generator for **Theus Abroad** social posts. CSV content flows into the existing HTML slide
 templates, SVG illustrations drop into the middle slides, Playwright renders
 each slide in Chromium, and the result is final 1080 × 1350 PNG files.
 
@@ -55,8 +55,10 @@ cta_key,closing_background,middle_subheading
 
 - `publish_at` uses `YYYY-MM-DD HH:MM`; its month decides the output folder.
 - Write `\n` inside a field for an explicit line break.
-- Backgrounds: `bg-paper`, `bg-cream`, `bg-ink`, `bg-charcoal`, `bg-gray`, `bg-red`.
-  Covers never use `bg-cream` — the generator rejects it.
+- Backgrounds: `bg-paper` (white `#FFFFFF`), `bg-tan` (`#C8B59A`),
+  `bg-navy` (`#101957`). Covers never use `bg-tan` — the generator rejects it.
+  Legacy names from the old palette still validate and render on the new
+  colors: `bg-cream` → tan; `bg-ink`, `bg-charcoal`, `bg-gray`, `bg-red` → navy.
 - `slide_number` orders the middle slides and must be unique per post. It is
   internal only — slide numbers are never displayed on a slide.
 - `middle_subheading` is an optional bold line (e.g. a person's name) placed

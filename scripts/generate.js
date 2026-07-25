@@ -28,7 +28,10 @@ const OUTPUT_DIR = path.join(ROOT, 'public', 'social');
 const WIDTH = 1080;
 const HEIGHT = 1350;
 
-const BACKGROUNDS = ['bg-paper', 'bg-cream', 'bg-ink', 'bg-charcoal', 'bg-gray', 'bg-red'];
+// Theus Abroad palette. The legacy names still validate: bg-cream renders
+// as bg-tan, and bg-ink / bg-charcoal / bg-gray / bg-red render as bg-navy.
+const BACKGROUNDS = ['bg-paper', 'bg-tan', 'bg-navy',
+                     'bg-cream', 'bg-ink', 'bg-charcoal', 'bg-gray', 'bg-red'];
 
 const PREVIEW = process.argv.includes('--preview');
 const POST_FILTER = (() => {
@@ -139,10 +142,10 @@ function validateCarousel(postId, rows, ctaLibrary) {
       fail(`${where}: ${field} "${value}" is not supported. Use one of: ${BACKGROUNDS.join(', ')}.`);
     }
   }
-  // Brand rule: covers never use cream.
-  if (first.cover_background === 'bg-cream') {
-    fail(`${where}: bg-cream is not allowed as a cover background. ` +
-         'Use bg-paper, bg-ink, bg-charcoal, bg-gray, or bg-red.');
+  // Brand rule: covers never use the light tan (formerly cream) background.
+  if (first.cover_background === 'bg-tan' || first.cover_background === 'bg-cream') {
+    fail(`${where}: ${first.cover_background} is not allowed as a cover background. ` +
+         'Use bg-paper or bg-navy.');
   }
 
   const ctaKey = first.cta_key;

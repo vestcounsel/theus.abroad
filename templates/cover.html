@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Vest Counsel cover slide</title>
+<title>Theus Abroad cover slide</title>
 <link href="../assets/fonts/montserrat.css" rel="stylesheet">
 <style>
   :root{
-    --ink:#0c0c0c; --paper:#ffffff; --red:#b32600;
-    --gray:#808080; --charcoal:#282828; --cream:#edeae3;
+    /* Theus Abroad brand palette */
+    --navy:#101957; --tan:#C8B59A; --paper:#ffffff;
     --ml:88px;                 /* left and right margin */
     --asc:0.968; --em:1.219;   /* Montserrat metrics, do not edit */
   }
@@ -17,14 +17,17 @@
     position:relative; width:1080px; height:1350px; overflow:hidden;
     font-family:'Montserrat',system-ui,sans-serif;
     -webkit-font-smoothing:antialiased;
-    background:var(--ink); color:var(--paper);
+    background:var(--navy); color:var(--paper);
   }
-  .slide.bg-ink     { background:var(--ink);      color:var(--paper); }
-  .slide.bg-red     { background:var(--red);      color:var(--paper); }
-  .slide.bg-charcoal{ background:var(--charcoal); color:var(--paper); }
-  .slide.bg-gray    { background:var(--gray);     color:var(--paper); }
-  .slide.bg-paper   { background:var(--paper);    color:var(--ink);   }
-  .slide.bg-cream   { background:var(--cream);    color:var(--ink);   }
+  /* bg-ink / bg-charcoal / bg-gray / bg-red are legacy aliases of bg-navy,
+     and bg-cream is a legacy alias of bg-tan, so older CSV rows and
+     rendered slides keep working. */
+  .slide.bg-navy, .slide.bg-ink, .slide.bg-charcoal,
+  .slide.bg-gray, .slide.bg-red
+                    { background:var(--navy); color:var(--paper); }
+  .slide.bg-paper   { background:var(--paper); color:var(--navy); }
+  .slide.bg-tan,
+  .slide.bg-cream   { background:var(--tan);   color:var(--navy); }
 
   .bl-top,.bl-bot{
     position:absolute; left:var(--ml); right:var(--ml); margin:0;
@@ -35,9 +38,10 @@
   .bl-bot{ bottom:calc((1350 - (var(--bl) + ((var(--lh) - var(--em))/2 + 0.251) * var(--fs))) * 1px); }
 
   .wordmark{ --fs:48; --lh:1; --bl:166.2;
-             letter-spacing:.105em; text-transform:uppercase; opacity:.42; }
+             letter-spacing:.105em; text-transform:uppercase; color:var(--tan); }
   .slide.bg-paper .wordmark,
-  .slide.bg-cream .wordmark{ opacity:1; color:var(--gray); }
+  .slide.bg-tan .wordmark,
+  .slide.bg-cream .wordmark{ color:var(--navy); opacity:.45; }
 
   /* pre-wrap keeps explicit returns AND wraps long titles naturally.
      The script below holds 120px whenever the title fits on up to
@@ -50,11 +54,11 @@
 <!-- =======================================================================
      EDIT HERE. Change the bg- class, change the headline text.
      Line breaks are literal: press return where you want the line to break.
-     Backgrounds: bg-ink  bg-red  bg-charcoal  bg-gray  bg-paper  bg-cream
+     Backgrounds: bg-navy  bg-paper  bg-tan
      ======================================================================= -->
 
 <div class="slide {{BACKGROUND}}" data-template="cover">
-  <p class="bl-top wordmark">Vest Counsel</p>
+  <p class="bl-top wordmark">Theus Abroad</p>
   <h1 class="bl-bot display">{{TITLE}}</h1>
 </div>
 

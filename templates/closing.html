@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Vest Counsel closing slide</title>
+<title>Theus Abroad closing slide</title>
 <link href="../assets/fonts/montserrat.css" rel="stylesheet">
 <style>
   :root{
-    --ink:#0c0c0c; --paper:#ffffff; --red:#b32600;
-    --gray:#808080; --charcoal:#282828; --cream:#edeae3;
+    /* Theus Abroad brand palette */
+    --navy:#101957; --tan:#C8B59A; --paper:#ffffff;
     --ml:88px;                 /* left and right margin */
     --asc:0.968; --em:1.219;   /* Montserrat metrics, do not edit */
   }
@@ -18,12 +18,15 @@
     font-family:'Montserrat',system-ui,sans-serif;
     -webkit-font-smoothing:antialiased;
   }
-  .slide.bg-paper   { background:var(--paper);    color:var(--ink);   --bg:var(--paper);    --accent:var(--red);   }
-  .slide.bg-cream   { background:var(--cream);    color:var(--ink);   --bg:var(--cream);    --accent:var(--red);   }
-  .slide.bg-ink     { background:var(--ink);      color:var(--paper); --bg:var(--ink);      --accent:var(--paper); }
-  .slide.bg-charcoal{ background:var(--charcoal); color:var(--paper); --bg:var(--charcoal); --accent:var(--paper); }
-  .slide.bg-gray    { background:var(--gray);     color:var(--paper); --bg:var(--gray);     --accent:var(--paper); }
-  .slide.bg-red     { background:var(--red);      color:var(--paper); --bg:var(--red);      --accent:var(--paper); }
+  /* bg-ink / bg-charcoal / bg-gray / bg-red are legacy aliases of bg-navy,
+     and bg-cream is a legacy alias of bg-tan, so older CSV rows and
+     rendered slides keep working. */
+  .slide.bg-paper   { background:var(--paper); color:var(--navy); --bg:var(--paper); --accent:var(--navy); }
+  .slide.bg-tan,
+  .slide.bg-cream   { background:var(--tan);   color:var(--navy); --bg:var(--tan);   --accent:var(--navy); }
+  .slide.bg-navy, .slide.bg-ink, .slide.bg-charcoal,
+  .slide.bg-gray, .slide.bg-red
+                    { background:var(--navy); color:var(--paper); --bg:var(--navy); --accent:var(--tan); }
 
   /* Baseline anchoring. .bl-top pins the first baseline, .bl-bot the last. */
   .bl-top,.bl-bot{
@@ -37,10 +40,9 @@
   .headline{ --fs:92.5; --lh:1.137; --bl:403.3; }
   .subheading{ --fs:36; --lh:1; --bl:478.9; letter-spacing:.076em;
              text-transform:uppercase; color:var(--accent); }
-  .phone   { --fs:24; --lh:1; --bl:519.7; letter-spacing:.058em; color:var(--accent); }
-  .email   { --fs:24; --lh:1; --bl:560.7; letter-spacing:.058em; color:var(--accent);
+  .email   { --fs:24; --lh:1; --bl:519.7; letter-spacing:.058em; color:var(--accent);
              text-decoration:none; }
-  .web     { --fs:24; --lh:1; --bl:601.7; letter-spacing:.058em; color:var(--accent);
+  .web     { --fs:24; --lh:1; --bl:560.7; letter-spacing:.058em; color:var(--accent);
              text-decoration:none; }
 
   /* Cat: 465 x 677, on the right margin, 138 up from the bottom.
@@ -56,7 +58,7 @@
 
 <!-- =======================================================================
      EDIT HERE.
-     Backgrounds:  bg-paper  bg-cream  bg-ink  bg-charcoal  bg-gray  bg-red
+     Backgrounds:  bg-paper  bg-tan  bg-navy
      Never indent a continuation line.
      ======================================================================= -->
 
@@ -65,9 +67,8 @@
   <h1 class="bl-bot headline">{{CTA_HEADING}}</h1>
 
   <p class="bl-top subheading">{{CTA_SUBHEADING}}</p>
-  <p class="bl-top phone">+1 888 VEST-599</p>
-  <a class="bl-top email" href="mailto:hello@vestcounsel.com">hello@vestcounsel.com</a>
-  <a class="bl-top web" href="https://www.vestcounsel.com">www.vestcounsel.com</a>
+  <a class="bl-top email" href="mailto:hello@theusabroad.com">hello@theusabroad.com</a>
+  <a class="bl-top web" href="https://www.theusabroad.com">www.theusabroad.com</a>
 
   <!-- artwork, nothing to edit below this line -->
     <svg class="cat" viewBox="0 0 1302.97 1894.9" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
