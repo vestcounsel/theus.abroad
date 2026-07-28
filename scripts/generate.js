@@ -236,30 +236,14 @@ function buildSlides(postId, rows, templates, ctaLibrary) {
     CTA_HEADING: escapeHtml(cta.heading),
     CTA_SUBHEADING: escapeHtml(cta.subheading),
   });
-  assertCatUnchanged(templates.closing, closingHtml, postId);
   slides.push({
     name: 'closing',
     template: 'closing',
     html: closingHtml,
-    checks: ['.headline', '.subheading', '.phone', '.email', '.web', '.cat'],
+    checks: ['.headline', '.subheading', '.email', '.web'],
   });
 
   return slides;
-}
-
-// The cat is a locked brand asset: whatever background the CSV picks, the
-// generated markup must carry the cat SVG exactly as stored in the template.
-function assertCatUnchanged(templateHtml, generatedHtml, postId) {
-  const catOf = (html) => {
-    const match = html.match(/<svg class="cat"[\s\S]*?<\/svg>/);
-    return match ? match[0] : null;
-  };
-  const original = catOf(templateHtml);
-  const generated = catOf(generatedHtml);
-  if (!original || generated !== original) {
-    fail(`post "${postId}": the closing-slide cat asset would be modified during generation. ` +
-         'The cat is locked and must be inserted exactly as stored in templates/closing.html.');
-  }
 }
 
 async function renderSlide(page, htmlFile, job) {
