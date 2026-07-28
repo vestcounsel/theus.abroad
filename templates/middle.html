@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Vest Counsel middle slide</title>
+<title>THEUS middle slide</title>
 <link href="../assets/fonts/montserrat.css" rel="stylesheet">
 <style>
   :root{
-    --ink:#0c0c0c; --paper:#ffffff; --red:#b32600;
-    --gray:#808080; --charcoal:#282828; --cream:#edeae3;
+    /* THEUS brand palette */
+    --navy:#101957; --tan:#C8B59A; --white:#ffffff;
     --ml:88px;                 /* left and right margin */
     --asc:0.968; --em:1.219;   /* Montserrat metrics, do not edit */
   }
@@ -18,12 +18,22 @@
     font-family:'Montserrat',system-ui,sans-serif;
     -webkit-font-smoothing:antialiased;
   }
-  .slide.bg-paper   { background:var(--paper);    color:var(--ink);   --bg:var(--paper);    --accent:var(--red);   }
-  .slide.bg-cream   { background:var(--cream);    color:var(--ink);   --bg:var(--cream);    --accent:var(--red);   }
-  .slide.bg-ink     { background:var(--ink);      color:var(--paper); --bg:var(--ink);      --accent:var(--paper); }
-  .slide.bg-charcoal{ background:var(--charcoal); color:var(--paper); --bg:var(--charcoal); --accent:var(--paper); }
-  .slide.bg-gray    { background:var(--gray);     color:var(--paper); --bg:var(--gray);     --accent:var(--paper); }
-  .slide.bg-red     { background:var(--red);      color:var(--paper); --bg:var(--red);      --accent:var(--paper); }
+  /* Canonical backgrounds, with the legacy Vest Counsel names kept as
+     aliases so older CSV rows still render on the THEUS palette. Tan is
+     the accent on navy; navy carries the accent on light backgrounds
+     (tan type on white falls below legible contrast). */
+  .slide.bg-white, .slide.bg-paper{
+    background:var(--white); color:var(--navy);
+    --accent:var(--navy); --rule:var(--tan);
+  }
+  .slide.bg-tan, .slide.bg-cream, .slide.bg-gray, .slide.bg-red{
+    background:var(--tan); color:var(--navy);
+    --accent:var(--navy); --rule:var(--navy);
+  }
+  .slide.bg-navy, .slide.bg-ink, .slide.bg-charcoal{
+    background:var(--navy); color:var(--white);
+    --accent:var(--tan); --rule:var(--tan);
+  }
 
   /* Baseline anchoring. .bl-top pins the first baseline, .bl-bot the last. */
   .bl-top,.bl-bot{
@@ -42,7 +52,7 @@
   .title{ --fs:60; --lh:1.35; --bl:368; letter-spacing:.083em; color:var(--accent); }
 
   .rule{ position:absolute; left:var(--ml); width:514px; height:1px;
-         background:currentColor; opacity:.18; }
+         background:var(--rule); }
   .r-top{ top:391px; }   /* sits clear of the title's descenders */
 
   /* Content flows top-down in normal document order, so the image can
@@ -70,7 +80,9 @@
 
 <!-- =======================================================================
      EDIT HERE.
-     Backgrounds:  bg-paper  bg-cream  bg-ink  bg-charcoal  bg-gray  bg-red
+     Backgrounds:  bg-white  bg-tan  bg-navy
+     (legacy names bg-paper/bg-cream/bg-ink/bg-charcoal/bg-gray/bg-red
+     still work and map onto the THEUS palette)
      Never indent a continuation line. Use &amp;amp; for an ampersand.
 
      ILLUSTRATIONS. The generator fills the img src from the CSV with a
@@ -107,7 +119,7 @@
   const subheading = document.querySelector('.subheading');
   const body = document.querySelector('.body');
   const art = document.querySelector('.illustration');
-  if (slide.className.indexOf(ph('BACKGROUND')) !== -1) slide.className = 'slide bg-cream';
+  if (slide.className.indexOf(ph('BACKGROUND')) !== -1) slide.className = 'slide bg-tan';
   if (title.textContent === ph('HEADING')) title.textContent = 'Use the correct entity name';
   if (subheading.textContent === ph('SUBHEADING')) subheading.textContent = '';
   if (body.textContent === ph('BODY')) body.textContent = 'The agreement should identify the exact company entering into the contract.';
