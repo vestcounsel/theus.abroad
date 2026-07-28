@@ -155,6 +155,13 @@ function validateCarousel(postId, rows, ctaLibrary) {
     }
   }
 
+  if (first.cover_image) {
+    const file = resolveImage(first.cover_image);
+    if (!fs.existsSync(file)) {
+      fail(`${where}: cover_image "${first.cover_image}" not found. Expected file: ${file}`);
+    }
+  }
+
   const ctaKey = first.cta_key;
   if (!ctaLibrary[ctaKey]) {
     fail(`${where}: cta_key "${ctaKey}" does not exist in content/cta-library.json. ` +
@@ -196,12 +203,19 @@ function buildSlides(postId, rows, templates, ctaLibrary) {
 
   // cover_subtitle may still exist in the CSV as a legacy column; it is
   // deliberately never rendered.
+  // cover_image is optional: when set, the cover renders the photo
+  // full-bleed under a navy scrim (the photo is excluded from the
+  // collision checks because sitting under the text is its job).
+  const coverSrc = first.cover_image
+    ? pathToFileURL(resolveImage(first.cover_image)).href
+    : '';
   slides.push({
     name: 'cover',
     template: 'cover',
     html: fillTemplate(templates.cover, {
       BACKGROUND: normalizeBackground(first.cover_background),
       TITLE: escapeHtml(toMultiline(first.cover_title)),
+      COVER_IMAGE_SRC: escapeHtml(coverSrc),
     }),
     checks: ['.wordmark', '.display'],
   });

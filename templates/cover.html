@@ -60,6 +60,20 @@
      The script below holds 120px whenever the title fits on up to
      three lines, and only then starts shrinking. */
   .display{ --fs:120; --lh:1.35; --bl:1263; letter-spacing:0; white-space:pre-wrap; }
+
+  /* Optional full-bleed cover photo (listing-style covers). The photo
+     fills the slide, and a navy scrim keeps the wordmark and title
+     legible on top of it. Both stay hidden unless a photo is set. */
+  .cover-photo{ position:absolute; inset:0; width:100%; height:100%;
+                object-fit:cover; }
+  .scrim{ position:absolute; inset:0;
+          background:linear-gradient(180deg,
+            rgba(16,25,87,.45) 0%, rgba(16,25,87,0) 22%,
+            rgba(16,25,87,0) 46%, rgba(16,25,87,.88) 82%,
+            rgba(16,25,87,.94) 100%); }
+  .slide.has-photo{ color:var(--white);
+                    --logo-text:var(--white); --logo-bar:var(--tan); }
+  .bl-top,.bl-bot{ z-index:1; }
 </style>
 </head>
 <body>
@@ -73,6 +87,8 @@
      ======================================================================= -->
 
 <div class="slide {{BACKGROUND}}" data-template="cover">
+  <img src="{{COVER_IMAGE_SRC}}" alt="" class="cover-photo">
+  <div class="scrim"></div>
   <p class="bl-top wordmark"><span class="logo-bar"></span>THEUS</p>
   <h1 class="bl-bot display">{{TITLE}}</h1>
 </div>
@@ -85,8 +101,17 @@
   const ph = name => '{{' + name + '}}';
   const slide = document.querySelector('.slide');
   const title = document.querySelector('.display');
+  const photo = document.querySelector('.cover-photo');
+  const scrim = document.querySelector('.scrim');
   if (slide.className.indexOf(ph('BACKGROUND')) !== -1) slide.className = 'slide bg-white';
   if (title.textContent === ph('TITLE')) title.textContent = 'Five contract mistakes\nfounders should avoid';
+  if (photo.getAttribute('src') === ph('COVER_IMAGE_SRC')) photo.src = '';
+  if (photo.getAttribute('src')){
+    slide.classList.add('has-photo');
+  } else {
+    photo.style.display = 'none';
+    scrim.style.display = 'none';
+  }
   /* Injected copy may carry "\n" as two characters; turn them into real
      newlines so multiline titles keep working under white-space:pre. */
   if (title.textContent.indexOf('\\n') !== -1){
