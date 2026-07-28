@@ -28,7 +28,22 @@ const OUTPUT_DIR = path.join(ROOT, 'public', 'social');
 const WIDTH = 1080;
 const HEIGHT = 1350;
 
-const BACKGROUNDS = ['bg-paper', 'bg-cream', 'bg-ink', 'bg-charcoal', 'bg-gray', 'bg-red'];
+const BACKGROUNDS = ['bg-white', 'bg-tan', 'bg-navy'];
+
+// Legacy Vest Counsel background names map onto the THEUS palette so
+// older CSV rows keep rendering without edits.
+const LEGACY_BACKGROUNDS = {
+  'bg-paper': 'bg-white',
+  'bg-cream': 'bg-tan',
+  'bg-gray': 'bg-tan',
+  'bg-red': 'bg-tan',
+  'bg-ink': 'bg-navy',
+  'bg-charcoal': 'bg-navy',
+};
+
+function normalizeBackground(value) {
+  return LEGACY_BACKGROUNDS[value] || value;
+}
 
 const PREVIEW = process.argv.includes('--preview');
 const POST_FILTER = (() => {
@@ -135,14 +150,9 @@ function validateCarousel(postId, rows, ctaLibrary) {
     ['cover_background', first.cover_background],
     ['closing_background', first.closing_background],
   ]) {
-    if (!BACKGROUNDS.includes(value)) {
+    if (!BACKGROUNDS.includes(normalizeBackground(value))) {
       fail(`${where}: ${field} "${value}" is not supported. Use one of: ${BACKGROUNDS.join(', ')}.`);
     }
-  }
-  // Brand rule: covers never use cream.
-  if (first.cover_background === 'bg-cream') {
-    fail(`${where}: bg-cream is not allowed as a cover background. ` +
-         'Use bg-paper, bg-ink, bg-charcoal, bg-gray, or bg-red.');
   }
 
   const ctaKey = first.cta_key;
@@ -165,7 +175,7 @@ function validateCarousel(postId, rows, ctaLibrary) {
     const slideWhere = `${where}, middle slide ${number}`;
     if (!row.middle_heading) fail(`${slideWhere}: middle_heading is empty.`);
     if (!row.middle_body) fail(`${slideWhere}: middle_body is empty.`);
-    if (!BACKGROUNDS.includes(row.middle_background)) {
+    if (!BACKGROUNDS.includes(normalizeBackground(row.middle_background))) {
       fail(`${slideWhere}: middle_background "${row.middle_background}" is not supported. ` +
            `Use one of: ${BACKGROUNDS.join(', ')}.`);
     }
@@ -190,7 +200,7 @@ function buildSlides(postId, rows, templates, ctaLibrary) {
     name: 'cover',
     template: 'cover',
     html: fillTemplate(templates.cover, {
-      BACKGROUND: first.cover_background,
+      BACKGROUND: normalizeBackground(first.cover_background),
       TITLE: escapeHtml(toMultiline(first.cover_title)),
     }),
     checks: ['.wordmark', '.display'],
@@ -206,7 +216,7 @@ function buildSlides(postId, rows, templates, ctaLibrary) {
       name: `middle (order ${row.slide_number})`,
       template: 'middle',
       html: fillTemplate(templates.middle, {
-        BACKGROUND: row.middle_background,
+        BACKGROUND: normalizeBackground(row.middle_background),
         HEADING: escapeHtml(toMultiline(row.middle_heading)),
         SUBHEADING: escapeHtml(toMultiline(row.middle_subheading || '')),
         BODY: escapeHtml(toMultiline(row.middle_body)),
@@ -221,35 +231,19 @@ function buildSlides(postId, rows, templates, ctaLibrary) {
 
   const cta = ctaLibrary[first.cta_key];
   const closingHtml = fillTemplate(templates.closing, {
-    BACKGROUND: first.closing_background,
+    BACKGROUND: normalizeBackground(first.closing_background),
     CTA_KEY: escapeHtml(first.cta_key),
     CTA_HEADING: escapeHtml(cta.heading),
     CTA_SUBHEADING: escapeHtml(cta.subheading),
   });
-  assertCatUnchanged(templates.closing, closingHtml, postId);
   slides.push({
     name: 'closing',
     template: 'closing',
     html: closingHtml,
-    checks: ['.headline', '.subheading', '.phone', '.email', '.web', '.cat'],
+    checks: ['.headline', '.subheading', '.email', '.web'],
   });
 
   return slides;
-}
-
-// The cat is a locked brand asset: whatever background the CSV picks, the
-// generated markup must carry the cat SVG exactly as stored in the template.
-function assertCatUnchanged(templateHtml, generatedHtml, postId) {
-  const catOf = (html) => {
-    const match = html.match(/<svg class="cat"[\s\S]*?<\/svg>/);
-    return match ? match[0] : null;
-  };
-  const original = catOf(templateHtml);
-  const generated = catOf(generatedHtml);
-  if (!original || generated !== original) {
-    fail(`post "${postId}": the closing-slide cat asset would be modified during generation. ` +
-         'The cat is locked and must be inserted exactly as stored in templates/closing.html.');
-  }
 }
 
 async function renderSlide(page, htmlFile, job) {

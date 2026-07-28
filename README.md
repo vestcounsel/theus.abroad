@@ -55,8 +55,10 @@ cta_key,closing_background,middle_subheading
 
 - `publish_at` uses `YYYY-MM-DD HH:MM`; its month decides the output folder.
 - Write `\n` inside a field for an explicit line break.
-- Backgrounds: `bg-paper`, `bg-cream`, `bg-ink`, `bg-charcoal`, `bg-gray`, `bg-red`.
-  Covers never use `bg-cream` — the generator rejects it.
+- Backgrounds: `bg-white`, `bg-tan`, `bg-navy` (the THEUS palette:
+  `#FFFFFF`, `#C8B59A`, `#101957`). The legacy names `bg-paper`,
+  `bg-cream`, `bg-ink`, `bg-charcoal`, `bg-gray`, `bg-red` are still
+  accepted and map onto the new palette.
 - `slide_number` orders the middle slides and must be unique per post. It is
   internal only — slide numbers are never displayed on a slide.
 - `middle_subheading` is an optional bold line (e.g. a person's name) placed

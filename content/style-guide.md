@@ -41,7 +41,7 @@ Distilled from the reviewed edits to the four Gaga trademark carousels
 - Headline: a plain-language action statement ("Search before you
   brand"), not a themed restatement of the series.
 - Subheading: a short direct invitation ("Reach out today").
-- Contact block (phone, email, website) and the locked cat never change.
+- Contact block (email and website) never changes.
 
 ## Sourcing discipline (unchanged)
 
