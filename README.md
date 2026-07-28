@@ -50,7 +50,7 @@ Columns:
 ```
 post_id,publish_at,cover_title,cover_subtitle,cover_background,slide_number,
 middle_heading,middle_body,middle_illustration,middle_alt,middle_background,
-cta_key,closing_background,middle_subheading
+cta_key,closing_background,middle_subheading,cover_image
 ```
 
 - `publish_at` uses `YYYY-MM-DD HH:MM`; its month decides the output folder.
@@ -64,6 +64,10 @@ cta_key,closing_background,middle_subheading
 - `middle_subheading` is an optional bold line (e.g. a person's name) placed
   between the divider and the body.
 - `cover_subtitle` is a legacy column; the generator ignores it entirely.
+- `cover_image` (optional, carousel-level) renders a photo full-bleed on
+  the cover under a navy scrim, listing-post style, with the title in
+  white on top. Use a repo path such as `assets/photos/pikaneset/exterior.jpg`.
+  Leave empty for the classic text-only cover.
 
 ## CTA keys
 
